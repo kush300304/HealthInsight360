@@ -3,7 +3,7 @@ from django.http import HttpResponse,JsonResponse
 from doctor.models import *
 from patient.models import *
 import pandas as pd
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from datetime import datetime
 import time
 from .models import *
@@ -114,13 +114,13 @@ def update_plot():
         df['AGE'] = (now - df['BIRTHDATE']).dt.days / 365.25  # Divide by number of days in a year
 
         # Plot age distribution
-        plt.clf()  # Clear existing plot
-        plt.hist(df['AGE'], bins=20, color='skyblue', edgecolor='black')
-        plt.xlabel('Age')
-        plt.ylabel('Frequency')
-        plt.title('Age Distribution of Patients')
-        plt.grid(True)
-        plt.savefig(r'C:\Users\kusha\Desktop\healthinsight\minorproject\static\img\plot.png')  # Save plot image
+        # plt.clf()  # Clear existing plot
+        # plt.hist(df['AGE'], bins=20, color='skyblue', edgecolor='black')
+        # plt.xlabel('Age')
+        # plt.ylabel('Frequency')
+        # plt.title('Age Distribution of Patients')
+        # plt.grid(True)
+        # plt.savefig(r'C:\Users\kusha\Desktop\healthinsight\minorproject\static\img\plot.png')  # Save plot image
     except Exception as e:
         print("Error:", e)
 
