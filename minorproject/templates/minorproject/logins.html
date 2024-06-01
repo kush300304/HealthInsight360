@@ -1,0 +1,59 @@
+{% extends 'minorproject/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <div class="dricon">
+      <a href={% url 'doc-login' %}><img src="{% static 'minorproject/logos/tuy.png' %}" alt="" class="dricon-img"></a>
+      <br>
+      <a href={% url 'doc-login' %} class="login-link ml-5" style="font-weight:500 ; color:black ; margin-right:-40px">Login as Doctor</a>
+    </div>
+    <div class="dricon">      
+      <a href={% url 'pat-login' %}><img src="{% static 'minorproject/logos/yogo.png' %}"  alt="" class="dricon-img-large mt-4"></a>
+      <br>
+      <a href={% url 'pat-login' %} class="login-link" style="font-weight:500 ; color:black">Login as Patient</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block style %}
+<style>
+.container {
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.dricon {
+  display: inline-flex;
+  width: 300px;
+  {% comment %} text-align: center; {% endcomment %}
+  align-items: center;
+  flex-direction: column;
+  margin: 50px;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 0px;
+}
+
+.dricon-img {
+  width: 450px; /* Set the width of the image to 100% */
+  max-width: none; /* Override any max-width rule */
+  height: auto; /* Maintain aspect ratio */
+}
+.dricon-img-large{
+  width: 350px; /* Set the width of the image to 100% */
+  max-width: none; /* Override any max-width rule */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.login-link {
+  font-size: 18px; /* Adjust font size as needed */
+}
+
+.login-link:hover {
+  color: black;
+}
+</style>
+{% endblock %}

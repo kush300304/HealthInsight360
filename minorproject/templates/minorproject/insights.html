@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insights</title>
+    <link rel="stylesheet" href="{% static "minorproject/insights.css"%}">
+</head>
+<body>
+    <div class="container">
+        <h1>Age Distribution Insights</h1>
+        <div id="ageDistribution">
+            <img src="{% static 'img/age_distribution.png' %}" id="ageDistributionImage" alt="Age Distribution">
+        </div>
+
+        <h1>Gender Distribution Insights</h1>
+        <div id="genderDistribution">
+            <img src="{% static 'img/gender_distribution.png' %}" id="genderDistributionImage" alt="Gender Distribution">
+        </div>
+
+        <h1>Marital Status Distribution Insights</h1>
+        <div id="maritalStatusDistribution">
+            <img src="{% static 'img/marital_state_distribution.png' %}" id="maritalStatusDistributionImage" alt="Marital Status Distribution">
+        </div>
+
+        <h1>Race Distribution Insights</h1>
+        <div id="raceDistribution">
+            <img src="{% static 'img/race_distribution.png' %}" id="raceDistributionImage" alt="Race Distribution">
+        </div>
+
+        <h1>Medication Distribution Insights</h1>
+        <div id="medicationDistribution">
+            <img src="{% static 'img/top_5_medications.png' %}" id="medicationDistributionImage" alt="Medicine Distribution">
+        </div>
+
+        <h1>Geographical Map Insights</h1>
+        <div id="geographicalMap">
+            <iframe src="{% static 'geographical_map.html' %}" id="geographicalMapFrame" style="width:100%;height:800px;"></iframe>
+        </div>
+
+        <h1>Age Distribution by Gender</h1>
+        <div id="linedistribution">
+            <img src="{% static 'img/age_distribution_by_gender.png' %}" id="linedistributionimage" alt="Line Distribution">
+        </div>
+
+        <button class="button">View More Insights</button>
+        <a href="#" class="link">Learn More</a>
+    </div>
+
+    <script>
+        // Function to reload the images every 60 seconds
+        function reloadImages() {
+            var imgElements = document.querySelectorAll('img');
+            for (var i = 0; i < imgElements.length; i++) {
+                var imgElement = imgElements[i];
+                imgElement.src = imgElement.src.split('?')[0] + '?' + new Date().getTime(); // Add timestamp to force browser to reload image
+            }
+        }
+
+        // Function to reload the geographical map iframe every 60 seconds
+        function reloadGeographicalMap() {
+            var iframeElement = document.getElementById('geographicalMapFrame');
+            iframeElement.src = iframeElement.src.split('?')[0] + '?' + new Date().getTime(); // Add timestamp to force browser to reload iframe content
+        }
+
+        // Reload the images and geographical map iframe every 60 seconds
+        setInterval(function() {
+            reloadImages();
+            reloadGeographicalMap();
+        }, 60000); // 60 seconds
+    </script>
+</body>
+</html>

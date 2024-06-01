@@ -1,0 +1,798 @@
+{%load static%}
+{% comment %} {%load custom_filters %} {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link type="text/css" href="{% static 'minorproject/searchh.css' %}" rel="stylesheet">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> {% endcomment %}
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script> {% endcomment %}
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        
+        .container-fluid a{ 
+            color:black;
+        }
+        .container-fluid #special
+        {
+            width:80px;
+            margin-right: 5px;
+        }
+        .dricon img{
+            margin-bottom: 20px;
+        
+        }
+        .dricon{
+            background-color: darkgray;
+        }
+        .container-fluid a:hover{
+            color: skyblue;
+        }
+        #logo{
+            size:20px;
+        }
+
+        #sitename{
+            font-size: large;
+            font-weight: 600;  
+            letter-spacing: 2px;
+        
+        }
+        #sitename:hover{
+            font-size: large;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+        body {
+            {% comment %} background-image: url("{% static 'minorproject/logos/bg2.png' %}"); {% endcomment %}
+            {% comment %} font-family: Arial, sans-serif;
+            
+            {% comment %} color: #333; {% endcomment %}
+            {% comment %} margin: 0; {% endcomment %}
+            {% comment %} padding: 20px;  {% endcomment %}
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #009688;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            color: #009688;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            display: none;
+        }
+
+        .section-content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .section-content ul li {
+            margin-bottom: 5px;
+        }
+
+        .substitute-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+    
+        .substitute-list li {
+            margin-bottom: 5px;
+            position: relative;
+        }
+    
+        .substitute-list li:before {
+            content: "\2022";
+            color: #007bff; /* Change bullet color */
+            font-weight: bold;
+            font-size: 1.2em;
+            position: absolute;
+            left: -20px;
+        }
+
+        .side-effect-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+    
+        .side-effect-list li {
+            margin-bottom: 5px;
+            position: relative;
+        }
+    
+        .side-effect-list li:before {
+            content: "\2022";
+            color: #dc3545; /* Change bullet color */
+            font-weight: bold;
+            font-size: 1.2em;
+            position: absolute;
+            left: -20px;
+        }
+        .preloader {
+            position: fixed;
+            left: 0;
+            width: 0;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            z-index: 9999999;
+            -webkit-transition: .9s;
+            transition: .9s;
+          }
+          
+          .preloader .loader {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            top: 45%;
+            -webkit-transform: translateY(-45%);
+                    transform: translateY(-45%);
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+          }
+          
+          .preloader .loader .loader-outter {
+            position: absolute;
+            border: 4px solid #ffffff;
+            border-left-color: transparent;
+            border-bottom: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            -webkit-animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+                    animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+          }
+          
+          .preloader .loader .loader-inner {
+            position: absolute;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            left: calc(40% - 21px);
+            top: calc(40% - 21px);
+            border-right: 0;
+            border-top-color: transparent;
+            -webkit-animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+                    animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+          }
+          
+          .preloader .loader .indicator {
+            position: absolute;
+            right: 0;
+            left: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%) scale(1.5);
+                    transform: translateY(-50%) scale(1.5);
+          }
+          
+          .preloader .loader .indicator svg polyline {
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+          }
+          
+          .preloader .loader .indicator svg polyline#back {
+            stroke: #ffffff;
+          }
+          
+          .preloader .loader .indicator svg polyline#front {
+            stroke: #1A76D1;
+            stroke-dasharray: 12, 36;
+            stroke-dashoffset: 48;
+            -webkit-animation: dash 1s linear infinite;
+                    animation: dash 1s linear infinite;
+          }
+          
+          .preloader::before, .preloader::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 60%;
+            z-index: -1;
+            background: #1A76D1;
+            -webkit-transition: .9s;
+            transition: .9s;
+          }
+          
+          .preloader::after {
+            left: auto;
+            right: 0;
+          }
+          
+          .preloader.preloader-deactivate {
+            visibility: hidden;
+          }
+          
+          .preloader.preloader-deactivate::after, .preloader.preloader-deactivate::before {
+            width: 0;
+          }
+          
+          .preloader.preloader-deactivate .loader {
+            opacity: 0;
+            visibility: hidden;
+          }
+          
+          @-webkit-keyframes loader-outter {
+            0% {
+              -webkit-transform: rotate(0deg);
+                      transform: rotate(0deg);
+            }
+            100% {
+              -webkit-transform: rotate(360deg);
+                      transform: rotate(360deg);
+            }
+          }
+          
+          @keyframes loader-outter {
+            0% {
+              -webkit-transform: rotate(0deg);
+                      transform: rotate(0deg);
+            }
+            100% {
+              -webkit-transform: rotate(360deg);
+                      transform: rotate(360deg);
+            }
+          }
+          
+          @-webkit-keyframes loader-inner {
+            0% {
+              -webkit-transform: rotate(0deg);
+                      transform: rotate(0deg);
+            }
+            100% {
+              -webkit-transform: rotate(-360deg);
+                      transform: rotate(-360deg);
+            }
+          }
+          
+          @keyframes loader-inner {
+            0% {
+              -webkit-transform: rotate(0deg);
+                      transform: rotate(0deg);
+            }
+            100% {
+              -webkit-transform: rotate(-360deg);
+                      transform: rotate(-360deg);
+            }
+          }
+          
+          @-webkit-keyframes dash {
+            62.5% {
+              opacity: 0;
+            }
+            to {
+              stroke-dashoffset: 0;
+            }
+          }
+          
+          @keyframes dash {
+            62.5% {
+              opacity: 0;
+            }
+            to {
+              stroke-dashoffset: 0;
+            }
+          }
+    </style>
+</head>
+<body>
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader-outter"></div>
+            <div class="loader-inner"></div>
+
+            <div class="indicator"> 
+                <svg width="16px" height="12px">
+                    <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                    <polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a id="special" href="#"> <img src="{% static 'minorproject/logos/new (1).png' %}" id="logo" alt=""> </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" id="sitename" href="{% url 'minor-home' %}">HealthInsight360</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Insights</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1 class="heading mt-5 text-center" style="color: blue; font-size: 36px;"><strong>Medical Insights</strong></h1>
+    <p class="text-center mb-5">Here contains a more detailed preview of your encounter</p>
+    <style>
+        .nav-tabs {
+            {% comment %} border-bottom: 2px solid #dee2e6; /* Add border to the bottom */ {% endcomment %}
+            background-color: #f8f9fa; /* Background color */
+        }
+    
+        /* Style for each nav item */
+        .nav-items {
+            display: inline-block;
+        }
+    
+        /* Style for the nav link */
+        .nav-links {
+            padding: 10px 20px; /* Add padding */
+            border-right: 1px solid #dee2e6; /* Add border to the right */
+            border-bottom: none; /* Remove default border */
+            color: #495057; /* Text color */
+            font-weight: bold; /* Bold text */
+            text-decoration: none; /* Remove underline */
+        }
+    
+        /* Remove border from the last nav item */
+        {% comment %} .nav-items:last-child .nav-link {
+            border-right: none; /* Remove border from the last item */
+        } {% endcomment %}
+        .nav-container {
+            max-width: 1140px; /* Set a maximum width */
+            margin: 0 auto; /* Center the container */
+        }
+        .nav-item:hover .nav-link {
+            background-color: blue; /* Blue color on hover */
+            color: white; /* Text color on hover */
+        }
+        .nav-link {
+            font-size: 14px; /* Adjust the font size as needed */
+            {% comment %} margin: 0 10px; /* Adjust the spacing between tabs */ {% endcomment %}
+        }
+        /* CSS for beautifying list elements and card */
+        /* CSS for beautifying list elements and card */
+        .side-effect-item {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            list-style-type: none;
+            transition: all 0.3s ease;
+        }
+        
+        .side-effect-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .card {
+            border: none;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-title {
+            color: #333333;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        /* CSS for white text */
+.card-body {
+    color: white;
+}
+
+        
+    
+    </style>
+    <div class="mt-12 mb-5 nav-container">
+        <ul class="nav nav-tabs d-none d-sm-flex  text-lg font-large text-center text-black-500 rounded-lg shadow" id="tabList">
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link active py-3 px-4" data-tab="imaging_studies">Imaging Studies</a>
+            </li>
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link py-3 px-4" data-tab="medications">Medications</a>
+            </li>
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link py-3 px-4" data-tab="immunizations">Immunizations</a>
+            </li>
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link py-3 px-4" data-tab="conditions">Conditions</a>
+            </li>
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link py-3 px-4" data-tab="allergies">Allergies</a>
+            </li>
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link py-3 px-4" data-tab="careplans">Careplans</a>
+            </li>
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link py-3 px-4" data-tab="observations">Observations</a>
+            </li>
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link py-3 px-4" data-tab="procedures">Procedures</a>
+            </li>
+            <li class="nav-item" style="border:1px solid whitesmoke;">
+                <a href="#" class="nav-link py-3 px-4" data-tab="organizations">Organization</a>
+            </li>
+        </ul>
+    </div>
+        
+        
+    </div>
+    
+    <div id="imaging_studiesContent" class="content" style="display: none;margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.imaging_studies %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            {% comment %} <h5 class="mb-3">It may cause:</h5> {% endcomment %}
+                            <ul style="list-style-type: disc; margin-left: 20px;">
+                                {% for img in result.imaging_studies %}
+    
+                                <li>Bodysite Description: {{ img.bodysite_desription }}</li>
+                                <li>SOP Description: {{ img.sop_description }}</li>
+        <!-- Display other attributes of medications as needed -->
+    
+                                {% endfor %}
+                            </ul>
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No Studies found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+    
+    
+    
+    
+    </div>
+    
+    <div id="medicationsContent" class="content" style="display: none;margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.medications %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            {% comment %} <h5 class="mb-3">It may cause:</h5> {% endcomment %}
+                            <ul style="list-style-type: disc; margin-left: 20px;">
+                                {% for med in result.medications %}
+                                {% if "" in med.reasondescription %}
+                                    <li> No reasons Found </li>
+                                {% else %}
+                                    <li>Reason: {{ med.reasondescription }}</li>
+                                {% endif %}
+                                <li>Total Cost: {{ med.totalcost }}</li>
+                                <!-- Display other attributes of medications as needed -->
+                            {% endfor %}
+
+
+                            </ul>
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No medications found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+    
+    <div id="immunizationsContent" class="content" style="display: none; margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.immunizations %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            <h5 class="mb-3">It can be substituted with:</h5>
+                            <ul style="list-style-type: disc; margin-left: 20px;">
+                                {% for immunization in result.immunizations %}
+                                
+                                    <li>Description: {{ immunization.description }}</li>
+                                    <!-- Add other attributes as needed -->
+                                
+                                {% endfor %}
+                            </ul>
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No immunizations found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+    
+    <div id="conditionsContent" class="content" style="display: none;margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.conditions %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            {% comment %} <p>It belongs to the chemical class of   {% endcomment %}
+                                {% for condition in result.conditions %}
+                            
+                                <li>Description: {{ condition.description }}</li>
+        <!-- Add other attributes as needed -->
+                                
+                                {% endfor %}
+                            {% comment %} </p> {% endcomment %}
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No conditions found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+    
+    <div id="allergiesContent" class="content" style="display: none;margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.allergies %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            {% comment %} <p>It falls under the therapeutic class of  {% endcomment %}
+                                {% for allergy in result.allergies %}
+                                {% comment %} <li> {% endcomment %}
+                                    <li>Description: {{ allergy.description }}</li>
+                                    <!-- Add other attributes as needed -->
+                                {% comment %} </li> {% endcomment %}
+                                {% endfor %}
+                            {% comment %} </p> {% endcomment %}
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                        
+                    </div>
+                    
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No allergies found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+    <div id="careplansContent" class="content" style="display: none;margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.careplans %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            {% for careplan in result.careplans %}
+                            {% comment %} <li> {% endcomment %}
+                                <li>Name: {{ careplan.reasondescription }}</li>
+                                <!-- Add other attributes as needed -->
+                            {% comment %} </li> {% endcomment %}
+                            {% endfor %}
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                        
+                    </div>
+                    
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No careplans found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+
+    <div id="observationsContent" class="content" style="display: none;margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.observations %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            {% for observation in result.observations %}
+                            {% comment %} <li> {% endcomment %}
+                                <li>Description: {{ observation.description }}</li>
+                                <!-- Add other attributes as needed -->
+                            {% comment %} </li> {% endcomment %}
+                            {% endfor %}
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                        
+                    </div>
+                    
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No observations found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+    
+    <div id="proceduresContent" class="content" style="display: none;margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.procedures %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            {% comment %} {% set unique_reasons = set() %} {% endcomment %}
+                            {% for procedure in result.procedures %}
+                                {% if procedure.reasondescription not in unique_reasons %}
+                                    <li>Reason: {{ procedure.reasondescription }}</li>
+                                    {% comment %} {% set _ = unique_reasons.add(procedure.reasondescription) %} {% endcomment %}
+                                    <!-- Add other attributes as needed -->
+                                {% endif %}
+                            {% endfor %}
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                        
+                    </div>
+                    
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No procedures found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+
+    <div id="organizationsContent" class="content" style="display: none;margin-top:20px">
+        {% if results %}
+            {% for result in results %}
+                {% if result.organizations %}
+                    <div class="card" style="max-width: 800px; margin: 0 auto; background-color: #1e90ff; border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body" style="color: white;">
+                            {% for org in result.organizations %}
+                            {% comment %} <li> {% endcomment %}
+                                <p>Name: {{ org.name }}</p>
+                                <p>City: {{ org.city }}</p>
+                                <p>Phone: {{ org.phone }}</p>
+                            {% comment %} </li> {% endcomment %}
+                            {% endfor %}
+                            <a href="#" class="btn btn-primary mt-4" style="background-color:darkblue;">Know more</a>
+                        </div>
+                        
+                    </div>
+                    
+                {% else %}
+                    <p style="text-align:center; font-weight:bold;">No organizations found.</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div>
+    {% comment %} <div id="invoiceContent" class="content" style="display: none;">
+        {% if results %}
+            {% for result in results %}
+                <ul>
+                    {% for substitute in result.uses %}
+                        <li>{{ substitute }}</li>
+                    {% endfor %}
+                </ul>
+                
+            {% endfor %}
+        {% else %}
+            <p>No results found.</p>
+        {% endif %}
+    </div> {% endcomment %}
+    
+    <!-- Bootstrap JS -->
+    {% comment %} <nav aria-label="...">
+        <ul class="pagination " style="margin-top:130px;justify-content:center;"> 
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item " aria-current="page">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Next</a>
+          </li>
+        </ul>
+      </nav> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('[data-tab]').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+    
+                // Remove 'active' class from all tabs
+                document.querySelectorAll('[data-tab]').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+    
+                // Hide all content
+                document.querySelectorAll('.content').forEach(content => {
+                    content.style.display = 'none';
+                });
+    
+                // Add 'active' class to clicked tab
+                this.classList.add('active');
+    
+                // Show content based on clicked tab
+                const tabName = this.getAttribute('data-tab');
+                document.getElementById(tabName + 'Content').style.display = 'block';
+            });
+        });
+    </script>
+    
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+   
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Main JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

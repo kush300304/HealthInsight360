@@ -1,0 +1,375 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link type="text/css" href="{% static 'minorproject/searchh.css' %}" rel="stylesheet">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> {% endcomment %}
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script> {% endcomment %}
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400&display=swap" rel="stylesheet">
+    
+    {% comment %} <link rel="stylesheet" href="{%static 'minorproject/css/normalize.css' %}"> {% endcomment %}
+    
+		{% comment %} <link rel="stylesheet" href=" {%static 'minorproject/css/bootstrap.min.css' %}"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="{%static 'minorproject/css/magnific-popup.css' %}"> {% endcomment %}
+
+    <style>
+        body{
+            background-image: url("{% static 'minorproject/logos/bg2.png' %}");
+        }
+        .container-fluid a{ 
+            color:black;
+        }
+        .container-fluid #special
+        {
+            width:80px;
+            margin-right: 5px;
+        }
+        .dricon img{
+            margin-bottom: 20px;
+        
+        }
+        .dricon{
+            background-color: darkgray;
+        }
+        .container-fluid a:hover{
+            color: skyblue;
+        }
+        #logo{
+            size:20px;
+        }
+
+        #sitename{
+            font-size: large;
+            font-weight: 600;  
+            letter-spacing: 2px;
+        
+        }
+        #sitename:hover{
+            font-size: large;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+        .ui-autocomplete {
+            position: absolute;
+            z-index: 1000; /* Ensure suggestions appear above other elements */
+            background-color: #fff;
+            border: 1px solid #ccc;
+            max-height: 200px; /* Limit the height of the suggestion box */
+            overflow-y: auto; /* Enable vertical scrolling if needed */
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .ui-autocomplete li {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .ui-autocomplete li:hover {
+            background-color: #f0f0f0;
+        }
+        .ui-autocomplete {
+            /* Adjust top position to move it down */
+            top: calc(100% + 2px); /* Add extra space between search input and suggestions */
+        }
+        .ui-helper-hidden-accessible {
+            display: none; /* Hide the default message */
+        }
+        .ui-autocomplete-message {
+            color: #999; /* Customize text color */
+            font-size: 12px; /* Customize font size */
+            margin-top: 5px; /* Adjust spacing from the autocomplete dropdown */
+        }
+        .preloader {
+            position: fixed;
+            left: 0;
+            width: 0;
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            z-index: 9999999;
+            -webkit-transition: .9s;
+            transition: .9s;
+          }
+          
+          .preloader .loader {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: inline-block;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            top: 45%;
+            -webkit-transform: translateY(-45%);
+                    transform: translateY(-45%);
+            -webkit-transition: 0.5s;
+            transition: 0.5s;
+          }
+          
+          .preloader .loader .loader-outter {
+            position: absolute;
+            border: 4px solid #ffffff;
+            border-left-color: transparent;
+            border-bottom: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            -webkit-animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+                    animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+          }
+          
+          .preloader .loader .loader-inner {
+            position: absolute;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            left: calc(40% - 21px);
+            top: calc(40% - 21px);
+            border-right: 0;
+            border-top-color: transparent;
+            -webkit-animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+                    animation: loader-inner 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
+          }
+          
+          .preloader .loader .indicator {
+            position: absolute;
+            right: 0;
+            left: 0;
+            top: 50%;
+            -webkit-transform: translateY(-50%) scale(1.5);
+                    transform: translateY(-50%) scale(1.5);
+          }
+          
+          .preloader .loader .indicator svg polyline {
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+          }
+          
+          .preloader .loader .indicator svg polyline#back {
+            stroke: #ffffff;
+          }
+          
+          .preloader .loader .indicator svg polyline#front {
+            stroke: #1A76D1;
+            stroke-dasharray: 12, 36;
+            stroke-dashoffset: 48;
+            -webkit-animation: dash 1s linear infinite;
+                    animation: dash 1s linear infinite;
+          }
+          
+          .preloader::before, .preloader::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 60%;
+            z-index: -1;
+            background: #1A76D1;
+            -webkit-transition: .9s;
+            transition: .9s;
+          }
+          
+          .preloader::after {
+            left: auto;
+            right: 0;
+          }
+          
+          .preloader.preloader-deactivate {
+            visibility: hidden;
+          }
+          
+          .preloader.preloader-deactivate::after, .preloader.preloader-deactivate::before {
+            width: 0;
+          }
+          
+          .preloader.preloader-deactivate .loader {
+            opacity: 0;
+            visibility: hidden;
+          }
+          
+          @-webkit-keyframes loader-outter {
+            0% {
+              -webkit-transform: rotate(0deg);
+                      transform: rotate(0deg);
+            }
+            100% {
+              -webkit-transform: rotate(360deg);
+                      transform: rotate(360deg);
+            }
+          }
+          
+          @keyframes loader-outter {
+            0% {
+              -webkit-transform: rotate(0deg);
+                      transform: rotate(0deg);
+            }
+            100% {
+              -webkit-transform: rotate(360deg);
+                      transform: rotate(360deg);
+            }
+          }
+          
+          @-webkit-keyframes loader-inner {
+            0% {
+              -webkit-transform: rotate(0deg);
+                      transform: rotate(0deg);
+            }
+            100% {
+              -webkit-transform: rotate(-360deg);
+                      transform: rotate(-360deg);
+            }
+          }
+          
+          @keyframes loader-inner {
+            0% {
+              -webkit-transform: rotate(0deg);
+                      transform: rotate(0deg);
+            }
+            100% {
+              -webkit-transform: rotate(-360deg);
+                      transform: rotate(-360deg);
+            }
+          }
+          
+          @-webkit-keyframes dash {
+            62.5% {
+              opacity: 0;
+            }
+            to {
+              stroke-dashoffset: 0;
+            }
+          }
+          
+          @keyframes dash {
+            62.5% {
+              opacity: 0;
+            }
+            to {
+              stroke-dashoffset: 0;
+            }
+          }
+          
+
+    </style>
+    {% comment %} <script>
+        $(document).ready(function(){
+            $(".btn-primary").click(function(){
+                var searchInput = $(".search-input").val();
+                var apiKey = "92FW6KK-HMQMW4R-N453J69-7NP4YZE"; // Replace "YOUR_API_KEY" with your actual API key
+                var apiUrl = "https://api.example.com/data?search=" + searchInput + "&apikey=" + apiKey;
+
+                $.get(apiUrl, function(data, status){
+                    // Handle the response data here, for example:
+                    console.log(data);
+                    // You can update the UI with the fetched data
+                });
+            });
+        });
+    </script> {% endcomment %}
+    
+</head>
+<body>
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader-outter"></div>
+            <div class="loader-inner"></div>
+
+            <div class="indicator"> 
+                <svg width="16px" height="12px">
+                    <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                    <polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a id="special" href="#"> <img src="{% static 'minorproject/logos/new (1).png' %}" id="logo" alt=""> </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" id="sitename" href="{% url 'minor-home' %}">HealthInsight360</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Insights</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Content -->
+    <div class="container mt-4">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-9"> 
+                <h1 class="heading mt-5 text-center" style="color: blue; font-size: 36px;"><strong>Report Library</strong></h1>
+                <p class="text-center">All Your Reports Here At One Place.</p>
+                <div class="d-flex justify-content-center align-items-center px-5 mt-6">
+                    <form action="{% url 'encounter' %}" method="get" class="search">
+                        <input type="text" class="search-input" id="search-input" placeholder="Search..." name="query">
+                        <button type="submit" class="search-icon" aria-label="Search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+
+    <!-- JavaScript code to handle autocomplete and redirect -->
+    <script>
+      $(document).ready(function() {
+          // Prevent form submission on pressing Enter or clicking the search icon
+          $('.search').on('submit', function(event) {
+              event.preventDefault();
+              var query = $('#search-input').val();
+              if (query.trim() !== '') {
+                  window.location.href = '/encounter/?query=' + encodeURIComponent(query);
+              }
+          });
+  
+          $('.search-icon').on('click', function(event) {
+              event.preventDefault();
+              $('.search').submit();
+          });
+      });
+  </script>
+   
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Main JS -->
+    <script src="{% static 'js/main.js' %}"></script> 
+
+    <!-- Other scripts and libraries -->
+</body>
+</html>

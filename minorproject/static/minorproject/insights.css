@@ -1,0 +1,85 @@
+/* Body style */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #f4f4f4, #ddd); /* Background gradient */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container style */
+.container {
+    max-width: 800px;
+    margin: 20px auto; /* Center align and add space around the container */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow */
+}
+
+/* Heading style */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+    text-shadow: 1px 1px 2px #ccc;
+}
+
+/* Image style */
+img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow */
+    transition: transform 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Apply hover effect on images */
+img:hover {
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+/* Geographical map iframe style */
+#iframe {
+    width:  100%;
+    height: 800px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Box shadow */
+    transition: transform 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Apply hover effect on iframe */
+#iframe:hover {
+    transform: scale(1.02); /* Scale up on hover */
+}
+
+/* Button style */
+.button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Apply hover effect on button */
+.button:hover {
+    background-color: #2980b9; /* Darker background color on hover */
+}
+
+/* Link style */
+a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Apply hover effect on link */
+a:hover {
+    color: #217dbb; /* Darker color on hover */
+}
